@@ -2,14 +2,12 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 export type State = { value: number };
 
-const initialState: State = { value: 0 };
-
 const slice = createSlice({
     name: 'slice',
-    initialState,
+    initialState: { value: 0 } satisfies State,
     reducers: {
-        increment: (state: State) => {
-            return { value: state.value + 1 };
+        increment: (state: State): State => {
+            return { ...state, value: state.value + 1 };
         },
     },
 });

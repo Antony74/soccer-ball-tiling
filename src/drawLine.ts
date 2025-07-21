@@ -1,7 +1,7 @@
 import { VectorLike } from 'gyrovector';
 import p5 from 'p5';
 
-type VectorLikeXY<T> = VectorLike<2, T> & {
+export type VectorLikeXY<T> = VectorLike<2, T> & {
     x: number;
     y: number;
 };

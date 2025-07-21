@@ -1,6 +1,7 @@
 import p5 from 'p5';
 import { GyrovectorSpaceFactory } from 'gyrovector/src/gyrovectorSpaceFactory';
 import { store } from './store';
+import { drawLine } from './drawLine';
 
 const space = GyrovectorSpaceFactory.create(2, -1 / 100000); // Hyperbolic
 //const space = GyrovectorSpaceFactory.create(2, 0); // Euclidean
@@ -9,26 +10,6 @@ const space = GyrovectorSpaceFactory.create(2, -1 / 100000); // Hyperbolic
 type GyrovectorType = ReturnType<typeof space.createVector>;
 
 export const sketch = (p: p5) => {
-    const lineMap = (
-        value: number,
-        start1: number,
-        end1: number,
-        start2: GyrovectorType,
-        end2: GyrovectorType,
-    ): GyrovectorType => {
-        return start2.add(end2.mult(p.map(value, start1, end1, 0, 1)));
-    };
-
-    const drawLine = (start: GyrovectorType, line: GyrovectorType) => {
-        const segments = 100;
-        p.beginShape();
-        for (let n = 0; n <= segments; ++n) {
-            const v = lineMap(n, 0, segments, start, line);
-            p.vertex(v.x, v.y);
-        }
-        p.endShape();
-    };
-
     const getPolygonPoints = (
         u: GyrovectorType,
         sides: number,
@@ -43,13 +24,13 @@ export const sketch = (p: p5) => {
 
             p.strokeWeight(10);
             p.stroke(0);
-            drawLine(currentPoint, u);
+            drawLine(p, currentPoint, u);
 
             nextPoint = currentPoint.add(u);
 
             p.strokeWeight(5);
             p.stroke(0, 255, 255);
-            drawLine(nextPoint, u.mult(-1));
+            drawLine(p, nextPoint, u.mult(-1));
 
             u = u.rotate(turn);
         }
@@ -90,4 +71,3 @@ export const sketch = (p: p5) => {
         p.noLoop();
     };
 };
-

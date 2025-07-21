@@ -6,12 +6,12 @@ import noMixedOperators from 'eslint-plugin-no-mixed-operators';
 
 export default defineConfig([
     {
-        files: ['**/*.{js,mjs,cjs,ts}'],
+        files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
         plugins: { js, noMixedOperators },
         extends: ['js/recommended'],
     },
     {
-        files: ['**/*.{js,mjs,cjs,ts}'],
+        files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
         languageOptions: { globals: globals.browser },
     },
     tseslint.configs.recommended,

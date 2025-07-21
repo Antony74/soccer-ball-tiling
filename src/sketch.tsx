@@ -1,14 +1,15 @@
 import p5 from 'p5';
 import { GyrovectorSpaceFactory } from 'gyrovector/src/gyrovectorSpaceFactory';
+import { useRef, useEffect } from 'react';
+import React from 'react';
 
 const space = GyrovectorSpaceFactory.create(2, -1 / 100000); // Hyperbolic
 //const space = GyrovectorSpaceFactory.create(2, 0); // Euclidean
 //const space = GyrovectorSpaceFactory.create(2, 1 / 100000); // Spherical
 
-
 type GyrovectorType = ReturnType<typeof space.createVector>;
 
-new p5((p) => {
+const sketch = (p: p5) => {
     const lineMap = (
         value: number,
         start1: number,
@@ -71,8 +72,13 @@ new p5((p) => {
     };
 
     p.draw = () => {
-        p.translate(0.5 * p.width, 0.5 * p.height);
         p.background(0, 0, 95);
+
+        p.noStroke();
+        p.fill(0);
+        p.text(p.frameCount, 100, 100);
+
+        p.translate(0.5 * p.width, 0.5 * p.height);
         p.noFill();
         p.strokeWeight(10);
 
@@ -82,6 +88,20 @@ new p5((p) => {
 
         const points = getPolygonPoints(u, 5);
         drawPolygon(points);
-        p.noLoop();
+//        p.noLoop();
     };
-});
+};
+
+export const Sketch = () => {
+    const p5ContainerRef = useRef(null);
+
+    useEffect(() => {
+        const p5Instance = new p5(sketch, p5ContainerRef.current ?? undefined);
+
+        return () => {
+            p5Instance.remove();
+        };
+    }, []);
+
+    return <div className="App" ref={p5ContainerRef} />;
+};

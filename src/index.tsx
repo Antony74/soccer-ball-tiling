@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
+import { Sketch } from './sketch';
 
 const App = () => {
-    return <div>Hello world</div>;
+    return <div><Sketch></Sketch></div>;
 };
 
 const root = document.getElementById('root');

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Sketch } from './sketch';
+import { SketchWrapper } from './sketchWrapper';
 import { Provider, useDispatch } from 'react-redux';
 import { increment, store } from './store';
 
@@ -9,7 +9,7 @@ const App = () => {
 
     return (
         <div>
-            <Sketch />
+            <SketchWrapper />
             <button
                 onClick={() => {
                     dispatch(increment());

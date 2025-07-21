@@ -1,7 +1,5 @@
 import p5 from 'p5';
 import { GyrovectorSpaceFactory } from 'gyrovector/src/gyrovectorSpaceFactory';
-import { useRef, useEffect } from 'react';
-import React from 'react';
 import { store } from './store';
 
 const space = GyrovectorSpaceFactory.create(2, -1 / 100000); // Hyperbolic
@@ -10,7 +8,7 @@ const space = GyrovectorSpaceFactory.create(2, -1 / 100000); // Hyperbolic
 
 type GyrovectorType = ReturnType<typeof space.createVector>;
 
-const sketch = (p: p5) => {
+export const sketch = (p: p5) => {
     const lineMap = (
         value: number,
         start1: number,
@@ -93,21 +91,3 @@ const sketch = (p: p5) => {
     };
 };
 
-export const Sketch = () => {
-    const p5ContainerRef = useRef(null);
-
-    useEffect(() => {
-        const p5Instance = new p5(sketch, p5ContainerRef.current ?? undefined);
-
-        const storeUnsubscribe = store.subscribe(() => {
-            p5Instance.loop();
-        });
-
-        return () => {
-            storeUnsubscribe();
-            p5Instance.remove();
-        };
-    }, []);
-
-    return <div className="App" ref={p5ContainerRef} />;
-};

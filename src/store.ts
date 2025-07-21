@@ -4,8 +4,8 @@ export type State = { value: number };
 
 const initialState: State = { value: 0 };
 
-export const counterSlice = createSlice({
-    name: 'counter',
+const slice = createSlice({
+    name: 'slice',
     initialState,
     reducers: {
         increment: (state: State) => {
@@ -14,8 +14,8 @@ export const counterSlice = createSlice({
     },
 });
 
-export const { increment } = counterSlice.actions;
+export const { increment } = slice.actions;
 
 export const store = configureStore({
-    reducer: counterSlice.reducer,
+    reducer: slice.reducer,
 });

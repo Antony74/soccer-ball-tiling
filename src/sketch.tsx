@@ -2,6 +2,7 @@ import p5 from 'p5';
 import { GyrovectorSpaceFactory } from 'gyrovector/src/gyrovectorSpaceFactory';
 import { useRef, useEffect } from 'react';
 import React from 'react';
+import { store } from './store';
 
 const space = GyrovectorSpaceFactory.create(2, -1 / 100000); // Hyperbolic
 //const space = GyrovectorSpaceFactory.create(2, 0); // Euclidean
@@ -76,7 +77,7 @@ const sketch = (p: p5) => {
 
         p.noStroke();
         p.fill(0);
-        p.text(p.frameCount, 100, 100);
+        p.text(store.getState().value, 100, 100);
 
         p.translate(0.5 * p.width, 0.5 * p.height);
         p.noFill();
@@ -88,7 +89,7 @@ const sketch = (p: p5) => {
 
         const points = getPolygonPoints(u, 5);
         drawPolygon(points);
-//        p.noLoop();
+        p.noLoop();
     };
 };
 
@@ -98,7 +99,12 @@ export const Sketch = () => {
     useEffect(() => {
         const p5Instance = new p5(sketch, p5ContainerRef.current ?? undefined);
 
+        const storeUnsubscribe = store.subscribe(() => {
+            p5Instance.loop();
+        });
+
         return () => {
+            storeUnsubscribe();
             p5Instance.remove();
         };
     }, []);

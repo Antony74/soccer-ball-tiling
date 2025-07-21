@@ -1,18 +1,46 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-export type State = { value: number };
+export enum Sketch {
+    Tiling,
+    Lines,
+}
+
+export enum Curvature {
+    Hyperbolic,
+    Euclidean,
+    Spherical,
+}
+
+export const maxCurvature = 2;
+
+export type State = { curvatureIndex: number; sketchIndex: number };
 
 const slice = createSlice({
     name: 'slice',
-    initialState: { value: 0 } satisfies State,
+    initialState: {
+        curvatureIndex: Curvature.Spherical,
+        sketchIndex: Sketch.Tiling,
+    } satisfies State,
     reducers: {
-        increment: (state: State): State => {
-            return { ...state, value: state.value + 1 };
+        curvaturePlus: (state: State): State => {
+            return {
+                ...state,
+                curvatureIndex: Math.min(
+                    state.curvatureIndex + 1,
+                    maxCurvature,
+                ),
+            };
+        },
+        curvatureMinus: (state: State): State => {
+            return {
+                ...state,
+                curvatureIndex: Math.max(state.curvatureIndex - 1, 0),
+            };
         },
     },
 });
 
-export const { increment } = slice.actions;
+export const { curvaturePlus, curvatureMinus } = slice.actions;
 
 export const store = configureStore({
     reducer: slice.reducer,

@@ -1,25 +1,9 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { SketchWrapper } from './sketchWrapper';
-import { Provider, useDispatch } from 'react-redux';
-import { increment, store } from './store';
-
-const App = () => {
-    const dispatch = useDispatch();
-
-    return (
-        <div>
-            <SketchWrapper />
-            <button
-                onClick={() => {
-                    dispatch(increment());
-                }}
-            >
-                Increment
-            </button>
-        </div>
-    );
-};
+import { Provider } from 'react-redux';
+import { store } from './store';
+import { Controls } from './controls';
 
 const root = document.getElementById('root');
 
@@ -30,7 +14,10 @@ if (root === null) {
 createRoot(root).render(
     <React.StrictMode>
         <Provider store={store}>
-            <App />
+            <div>
+                <SketchWrapper />
+                <Controls />
+            </div>
         </Provider>
     </React.StrictMode>,
 );

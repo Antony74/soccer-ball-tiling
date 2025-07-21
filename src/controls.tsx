@@ -1,9 +1,9 @@
 import React from 'react';
 import { SketchWrapper } from './sketchWrapper';
-import { increment } from './store';
+import { curvatureMinus, curvaturePlus } from './store';
 import { useDispatch } from 'react-redux';
 
-export const controls = () => {
+export const Controls = () => {
     const dispatch = useDispatch();
 
     return (
@@ -11,10 +11,17 @@ export const controls = () => {
             <SketchWrapper />
             <button
                 onClick={() => {
-                    dispatch(increment());
+                    dispatch(curvatureMinus());
                 }}
             >
-                Increment
+                -
+            </button>
+            <button
+                onClick={() => {
+                    dispatch(curvaturePlus());
+                }}
+            >
+                +
             </button>
         </div>
     );

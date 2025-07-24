@@ -1,25 +1,16 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-export enum Sketch {
-    Tiling,
-    Lines,
-}
+export const sketches = { Tiling: 0, Lines: 1 };
 
-export enum Curvature {
-    Hyperbolic,
-    Euclidean,
-    Spherical,
-}
-
-export const maxCurvature = 2;
+export const curvatures = { Hyperbolic: 0, Euclidean: 1, Spherical: 2 };
 
 export type State = { curvatureIndex: number; sketchIndex: number };
 
 const slice = createSlice({
     name: 'slice',
     initialState: {
-        curvatureIndex: Curvature.Spherical,
-        sketchIndex: Sketch.Tiling,
+        curvatureIndex: curvatures.Spherical,
+        sketchIndex: 0,
     } satisfies State,
     reducers: {
         curvaturePlus: (state: State): State => {
@@ -27,7 +18,7 @@ const slice = createSlice({
                 ...state,
                 curvatureIndex: Math.min(
                     state.curvatureIndex + 1,
-                    maxCurvature,
+                    Object.keys(curvatures).length - 1,
                 ),
             };
         },
@@ -40,8 +31,14 @@ const slice = createSlice({
     },
 });
 
-export const { curvaturePlus, curvatureMinus } = slice.actions;
-
 export const store = configureStore({
     reducer: slice.reducer,
 });
+
+const actionKeys = Object.keys(
+    slice.actions,
+).sort() as (keyof typeof slice.actions)[];
+
+export const [curvatureMinus, curvaturePlus] = actionKeys.map((key) =>
+    () => store.dispatch(slice.actions[key]()),
+);

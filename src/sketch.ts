@@ -1,5 +1,5 @@
 import p5 from 'p5';
-import { Sketch, store } from './store';
+import { sketches, store } from './store';
 import { drawTiling } from './drawTiling';
 
 export const sketch = (p: p5) => {
@@ -12,7 +12,7 @@ export const sketch = (p: p5) => {
         p.background(0, 0, 95);
 
         switch (store.getState().sketchIndex) {
-            case Sketch.Lines:
+            case sketches.Lines:
             default:
                 drawTiling(p);
         }

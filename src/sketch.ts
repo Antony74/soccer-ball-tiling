@@ -1,6 +1,7 @@
 import p5 from 'p5';
 import { sketches, store } from './store';
 import { drawTiling } from './drawTiling';
+import { drawParallelLines } from './drawParallelLines';
 
 export const sketch = (p: p5) => {
     p.setup = () => {
@@ -9,12 +10,13 @@ export const sketch = (p: p5) => {
     };
 
     p.draw = () => {
-        p.background(0, 0, 95);
-
         switch (store.getState().sketchIndex) {
             case sketches.Lines:
+                drawParallelLines(p);
+                break;
             default:
-                drawTiling(p);
+//                drawTiling(p);
+                drawParallelLines(p);
         }
 
         p.noLoop();

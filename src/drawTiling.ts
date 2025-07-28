@@ -1,13 +1,7 @@
-import { GyrovectorSpaceFactory } from 'gyrovector';
 import p5 from 'p5';
 import { store } from './store';
 import { Polygon } from './polygon';
-
-const spaces = [
-    GyrovectorSpaceFactory.create(2, -1 / 100000), // Hyperbolic
-    GyrovectorSpaceFactory.create(2, 0), // Euclidean
-    GyrovectorSpaceFactory.create(2, 1 / 100000), // Spherical
-];
+import { spaces } from './spaces';
 
 export const drawTiling = (p: p5) => {
     p.background(0, 0, 95);

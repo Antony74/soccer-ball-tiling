@@ -1,19 +1,20 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { routerReducer } from 'react-router-redux';
 
 export const sketches = { Tiling: 0, Lines: 1 };
 
 export const curvatures = { Hyperbolic: 0, Euclidean: 1, Spherical: 2 };
 
-export type State = { curvatureIndex: number; sketchIndex: number };
+export type MainState = { curvatureIndex: number; sketchIndex: number };
 
 const slice = createSlice({
     name: 'slice',
     initialState: {
         curvatureIndex: curvatures.Spherical,
         sketchIndex: 0,
-    } satisfies State,
+    } satisfies MainState,
     reducers: {
-        curvaturePlus: (state: State): State => {
+        curvaturePlus: (state: MainState): MainState => {
             return {
                 ...state,
                 curvatureIndex: Math.min(
@@ -22,7 +23,7 @@ const slice = createSlice({
                 ),
             };
         },
-        curvatureMinus: (state: State): State => {
+        curvatureMinus: (state: MainState): MainState => {
             return {
                 ...state,
                 curvatureIndex: Math.max(state.curvatureIndex - 1, 0),
@@ -32,13 +33,15 @@ const slice = createSlice({
 });
 
 export const store = configureStore({
-    reducer: slice.reducer,
+    reducer: { main: slice.reducer, routing: routerReducer },
 });
 
 const actionKeys = Object.keys(
     slice.actions,
 ).sort() as (keyof typeof slice.actions)[];
 
-export const [curvatureMinus, curvaturePlus] = actionKeys.map((key) =>
-    () => store.dispatch(slice.actions[key]()),
+export const [curvatureMinus, curvaturePlus] = actionKeys.map(
+    (key) => () => store.dispatch(slice.actions[key]()),
 );
+
+export type State = ReturnType<typeof store.getState>;

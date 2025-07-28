@@ -13,7 +13,7 @@ export const drawTiling = (p: p5) => {
 
     const size = 80;
 
-    const space = spaces[store.getState().curvatureIndex];
+    const space = spaces[store.getState().main.curvatureIndex];
 
     const u = space.createVector(size, 0);
 

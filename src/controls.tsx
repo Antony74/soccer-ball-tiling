@@ -3,7 +3,7 @@ import { curvatureMinus, curvaturePlus, curvatures, State } from './store';
 import { useSelector } from 'react-redux';
 
 export const Controls = () => {
-    const curvatureIndex =  useSelector((state: State) => state.curvatureIndex);
+    const curvatureIndex =  useSelector((state: State) => state.main.curvatureIndex);
 
     return (
         <div>

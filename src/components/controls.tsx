@@ -1,16 +1,19 @@
 import React from 'react';
-import { curvatures, State } from '../store/store';
-import { useSelector } from 'react-redux';
-import { curvatureMinus, curvaturePlus } from '../store/actions';
+import { curvatures } from '../store/store';
+import { useNavigate, useSearchParams } from 'react-router';
+import { setCurvatureIndex } from '../store/actions';
 
 export const Controls = () => {
-    const curvatureIndex = useSelector((state: State) => state.curvatureIndex);
+    const [params] = useSearchParams();
+    const curvatureIndex = parseInt(params.get('curvatureIndex') ?? '2');
+    const navigate = useNavigate();
+    setCurvatureIndex(curvatureIndex);
 
     return (
         <div>
             <button
                 onClick={() => {
-                    curvatureMinus();
+                    navigate(`/?curvatureIndex=${curvatureIndex - 1}`);
                 }}
                 disabled={curvatureIndex <= 0}
             >
@@ -18,7 +21,7 @@ export const Controls = () => {
             </button>
             <button
                 onClick={() => {
-                    curvaturePlus();
+                    navigate(`/?curvatureIndex=${curvatureIndex + 1}`);
                 }}
                 disabled={curvatureIndex >= Object.keys(curvatures).length - 1}
             >

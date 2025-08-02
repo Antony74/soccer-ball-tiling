@@ -14,21 +14,6 @@ export const storeSlice = createSlice({
         sketchIndex: 0,
     } satisfies MainState,
     reducers: {
-        curvaturePlus: (state: MainState): MainState => {
-            return {
-                ...state,
-                curvatureIndex: Math.min(
-                    state.curvatureIndex + 1,
-                    Object.keys(curvatures).length - 1,
-                ),
-            };
-        },
-        curvatureMinus: (state: MainState): MainState => {
-            return {
-                ...state,
-                curvatureIndex: Math.max(state.curvatureIndex - 1, 0),
-            };
-        },
         setCurvatureIndex: (
             state: MainState,
             { payload }: PayloadAction<number>,

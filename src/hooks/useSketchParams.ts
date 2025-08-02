@@ -32,10 +32,12 @@ export const useSketchParams = () => {
     };
 
     return {
+        curvature,
         curvatureIndex,
         curvaturePlus: () => navigateCurvatureIndex(curvatureIndex + 1),
         curvatureMinus: () => navigateCurvatureIndex(curvatureIndex - 1),
         maxCurvatureIndex: curvaturesArray.length - 1,
+        sketch,
         sketchIndex,
         setSketchIndex: (newSketchIndex: number) =>
             navigate(

@@ -1,5 +1,5 @@
 import p5 from 'p5';
-import { store } from './store';
+import { store } from '../store/store';
 import { Polygon } from './polygon';
 import { spaces } from './spaces';
 

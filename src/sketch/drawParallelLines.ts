@@ -3,7 +3,7 @@
 import p5 from 'p5';
 import { drawLine } from './drawLine';
 import { spaces } from './spaces';
-import { store } from './store';
+import { store } from '../store/store';
 
 export const drawParallelLines = (p: p5) => {
     p.background(0, 0, 95);

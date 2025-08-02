@@ -7,7 +7,7 @@ export const curvaturesArray = Object.keys(curvatures);
 
 export type MainState = { curvatureIndex: number; sketchIndex: number };
 
-const slice = createSlice({
+export const storeSlice = createSlice({
     name: 'slice',
     initialState: {
         curvatureIndex: curvatures.Spherical,
@@ -40,19 +40,7 @@ const slice = createSlice({
 });
 
 export const store = configureStore({
-    reducer: slice.reducer,
+    reducer: storeSlice.reducer,
 });
 
 export type State = ReturnType<typeof store.getState>;
-
-export const curvatureMinus = () => {
-    store.dispatch(slice.actions.curvatureMinus());
-};
-
-export const curvaturePlus = () => {
-    store.dispatch(slice.actions.curvaturePlus());
-};
-
-export const setCurvatureIndex = (index: number) => {
-    store.dispatch(slice.actions.setCurvatureIndex(index));
-};

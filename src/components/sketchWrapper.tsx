@@ -1,7 +1,7 @@
 import p5 from 'p5';
 import React from 'react';
-import { sketch } from './sketch';
-import { store } from './store';
+import { sketch } from '../sketch/sketch';
+import { store } from '../store/store';
 
 export const SketchWrapper = () => {
     const p5ContainerRef = React.useRef(null);

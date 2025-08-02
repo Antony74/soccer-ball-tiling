@@ -1,6 +1,6 @@
 import { useSearchParams, useNavigate } from 'react-router';
 import { setCurvatureIndex } from '../store/actions';
-import { curvatures } from '../store/store';
+import { curvaturesArray } from '../store/store';
 
 export const useSketchParams = () => {
     const [params] = useSearchParams();
@@ -16,6 +16,6 @@ export const useSketchParams = () => {
         curvatureIndex,
         curvaturePlus: () => navigateCurvatureIndex(curvatureIndex + 1),
         curvatureMinus: () => navigateCurvatureIndex(curvatureIndex - 1),
-        maxCurvatureIndex: Object.keys(curvatures).length - 1,
+        maxCurvatureIndex: curvaturesArray.length - 1,
     };
 };

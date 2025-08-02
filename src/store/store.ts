@@ -1,9 +1,26 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const sketches = { Tiling: 0, Lines: 1 };
+const toIndex = (arr: string[]) =>
+    Object.fromEntries(
+        arr.map((key, index) => {
+            return [key, index];
+        }),
+    );
 
-export const curvatures = { Hyperbolic: 0, Euclidean: 1, Spherical: 2 };
-export const curvaturesArray = Object.keys(curvatures);
+const fromIndex = (arr: string[]) =>
+    Object.fromEntries(
+        arr.map((key, index) => {
+            return [index, key];
+        }),
+    );
+
+export const sketchesArray = ['Tiling', 'Lines'];
+export const sketches = toIndex(sketchesArray);
+export const sketchFromIndex = fromIndex(sketchesArray);
+
+export const curvaturesArray = ['Hyperbolic', 'Euclidean', 'Spherical'];
+export const curvatures = toIndex(curvaturesArray);
+export const curvatureFromIndex = fromIndex(curvaturesArray);
 
 export type MainState = { curvatureIndex: number; sketchIndex: number };
 

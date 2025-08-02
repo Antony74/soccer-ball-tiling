@@ -14,6 +14,7 @@ export const sketchesArray = ['Tiling', 'Lines'] as const;
 
 export const sketches = toIndex(sketchesArray);
 export const sketchFromIndex = fromIndex(sketchesArray);
+export type Sketch = keyof typeof sketches;
 
 export const curvaturesArray = [
     'Hyperbolic',
@@ -23,6 +24,7 @@ export const curvaturesArray = [
 
 export const curvatures = toIndex(curvaturesArray);
 export const curvatureFromIndex = fromIndex(curvaturesArray);
+export type Curvature = keyof typeof curvatures;
 
 export type MainState = { curvatureIndex: number; sketchIndex: number };
 

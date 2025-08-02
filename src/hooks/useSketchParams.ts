@@ -1,18 +1,33 @@
 import { useSearchParams, useNavigate } from 'react-router';
 import { setCurvatureIndex, setSketchIndex } from '../store/actions';
-import { curvaturesArray } from '../store/store';
+
+import {
+    Curvature,
+    curvatureFromIndex,
+    curvatures,
+    curvaturesArray,
+    Sketch,
+    sketches,
+    sketchFromIndex,
+} from '../store/store';
 
 export const useSketchParams = () => {
-    const [params] = useSearchParams();
-    const curvatureIndex = parseInt(params.get('curvatureIndex') ?? '2');
-    const sketchIndex = parseInt(params.get('sketchIndex') ?? '1');
     const navigate = useNavigate();
-    setCurvatureIndex(curvatureIndex);
+    const [params] = useSearchParams();
+    const sketch = params.get('sketch') ?? 'Lines';
+    const curvature = params.get('curvature') ?? 'Spherical';
+
+    const sketchIndex = sketches[sketch as Sketch] ?? sketches.Lines;
+
+    const curvatureIndex =
+        curvatures[curvature as Curvature] ?? curvatures.Spherical;
+
     setSketchIndex(sketchIndex);
+    setCurvatureIndex(curvatureIndex);
 
     const navigateCurvatureIndex = (newCurvatureIndex: number) => {
         navigate(
-            `/?sketchIndex=${sketchIndex}&curvatureIndex=${newCurvatureIndex}`,
+            `/?sketch=${sketch}&curvature=${curvatureFromIndex[newCurvatureIndex]}`,
         );
     };
 
@@ -24,7 +39,7 @@ export const useSketchParams = () => {
         sketchIndex,
         setSketchIndex: (newSketchIndex: number) =>
             navigate(
-                `/?sketchIndex=${newSketchIndex}&curvatureIndex=${curvatureIndex}`,
+                `/?sketch=${sketchFromIndex[newSketchIndex]}&curvature=${curvature}`,
             ),
     };
 };

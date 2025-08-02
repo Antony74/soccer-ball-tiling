@@ -8,7 +8,6 @@ import {
     curvaturesArray,
     Sketch,
     sketches,
-    sketchFromIndex,
 } from '../store/store';
 
 export const useSketchParams = () => {
@@ -39,9 +38,7 @@ export const useSketchParams = () => {
         maxCurvatureIndex: curvaturesArray.length - 1,
         sketch,
         sketchIndex,
-        setSketchIndex: (newSketchIndex: number) =>
-            navigate(
-                `/?sketch=${sketchFromIndex[newSketchIndex]}&curvature=${curvature}`,
-            ),
+        setSketch: (newSketch: string) =>
+            navigate(`/?sketch=${newSketch}&curvature=${curvature}`),
     };
 };

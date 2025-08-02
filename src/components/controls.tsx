@@ -1,8 +1,11 @@
 import React from 'react';
 import { useSketchParams } from '../hooks/useSketchParams';
+import { sketchesArray } from '../store/store';
 
 export const Controls = () => {
     const {
+        sketch,
+        setSketch,
         curvature,
         curvatureIndex,
         curvatureMinus,
@@ -17,7 +20,17 @@ export const Controls = () => {
                     <strong>Sketch:</strong>
                 </div>
                 <div>
-                    <select aria-label="Sketch"></select>
+                    <select
+                        aria-label="Sketch"
+                        defaultValue={sketch}
+                        onChange={(event) => {
+                            setSketch(event.target.value);
+                        }}
+                    >
+                        {sketchesArray.map((option) => {
+                            return <option key={option}>{option}</option>;
+                        })}
+                    </select>
                 </div>
             </div>
             <div id="grid">

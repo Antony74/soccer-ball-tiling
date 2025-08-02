@@ -1,24 +1,26 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const toIndex = (arr: string[]) =>
-    Object.fromEntries(
-        arr.map((key, index) => {
-            return [key, index];
-        }),
-    );
+const toIndex = <T extends string>(arr: readonly T[]) => {
+    const result = Object.fromEntries(arr.map((key, index) => [key, index]));
+    return result as Record<T, number>;
+};
 
-const fromIndex = (arr: string[]) =>
-    Object.fromEntries(
-        arr.map((key, index) => {
-            return [index, key];
-        }),
-    );
+const fromIndex = <T extends string>(arr: readonly T[]) => {
+    const result = Object.fromEntries(arr.map((key, index) => [index, key]));
+    return result as Record<number, T>;
+};
 
-export const sketchesArray = ['Tiling', 'Lines'];
+export const sketchesArray = ['Tiling', 'Lines'] as const;
+
 export const sketches = toIndex(sketchesArray);
 export const sketchFromIndex = fromIndex(sketchesArray);
 
-export const curvaturesArray = ['Hyperbolic', 'Euclidean', 'Spherical'];
+export const curvaturesArray = [
+    'Hyperbolic',
+    'Euclidean',
+    'Spherical',
+] as const;
+
 export const curvatures = toIndex(curvaturesArray);
 export const curvatureFromIndex = fromIndex(curvaturesArray);
 

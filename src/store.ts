@@ -1,9 +1,9 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-import { routerReducer } from 'react-router-redux';
+import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const sketches = { Tiling: 0, Lines: 1 };
 
 export const curvatures = { Hyperbolic: 0, Euclidean: 1, Spherical: 2 };
+export const curvaturesArray = Object.keys(curvatures);
 
 export type MainState = { curvatureIndex: number; sketchIndex: number };
 
@@ -29,19 +29,30 @@ const slice = createSlice({
                 curvatureIndex: Math.max(state.curvatureIndex - 1, 0),
             };
         },
+        setCurvatureIndex: (
+            state: MainState,
+            { payload }: PayloadAction<number>,
+        ): MainState => {
+            payload = curvaturesArray[payload] ? payload : curvatures.Spherical;
+            return { ...state, curvatureIndex: payload };
+        },
     },
 });
 
 export const store = configureStore({
-    reducer: { main: slice.reducer, routing: routerReducer },
+    reducer: slice.reducer,
 });
 
-const actionKeys = Object.keys(
-    slice.actions,
-).sort() as (keyof typeof slice.actions)[];
-
-export const [curvatureMinus, curvaturePlus] = actionKeys.map(
-    (key) => () => store.dispatch(slice.actions[key]()),
-);
-
 export type State = ReturnType<typeof store.getState>;
+
+export const curvatureMinus = () => {
+    store.dispatch(slice.actions.curvatureMinus());
+};
+
+export const curvaturePlus = () => {
+    store.dispatch(slice.actions.curvaturePlus());
+};
+
+export const setCurvatureIndex = (index: number) => {
+    store.dispatch(slice.actions.setCurvatureIndex(index));
+};

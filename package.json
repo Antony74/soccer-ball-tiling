@@ -4,6 +4,7 @@
     "scripts": {
         "lint": "prettier --write . && eslint src --fix",
         "start": "rimraf dist && rimraf .parcel-cache && parcel src/index.html --public-url /p5-gyrovectors/dist",
+        "prettier": "prettier --write .",
         "tsc": "rimraf dist && tsc"
     },
     "repository": {
@@ -31,15 +32,13 @@
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
         "react-redux": "^9.2.0",
-        "react-router": "^7.7.1",
-        "react-router-redux": "^4.0.8"
+        "react-router": "^7.7.1"
     },
     "devDependencies": {
         "@eslint/js": "^9.27.0",
         "@types/p5": "^1.7.6",
         "@types/react": "^19.1.8",
         "@types/react-dom": "^19.1.6",
-        "@types/react-router-redux": "^5.0.27",
         "eslint": "^9.27.0",
         "eslint-plugin-no-mixed-operators": "^1.1.1",
         "parcel": "^2.15.2",

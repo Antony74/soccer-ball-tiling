@@ -10,7 +10,7 @@ export const drawParallelLines = (p: p5) => {
     p.translate(0.5 * p.width, 0.5 * p.height);
     p.noFill();
 
-    const space = spaces[store.getState().main.curvatureIndex];
+    const space = spaces[store.getState().curvatureIndex];
 
     const u = space.createVector(40, 0);
     const v = u.rotate(p.HALF_PI);

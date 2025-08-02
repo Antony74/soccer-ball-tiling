@@ -15,7 +15,7 @@ export const sketch = (p: p5) => {
                 drawParallelLines(p);
                 break;
             default:
-//                drawTiling(p);
+                //                drawTiling(p);
                 drawParallelLines(p);
         }
 

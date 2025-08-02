@@ -1,8 +1,8 @@
 // const u = space.createVector(40, 0);
 
 import p5 from 'p5';
-import { drawLine } from './drawLine';
-import { spaces } from './spaces';
+import { drawLine } from './common/drawLine';
+import { spaces } from './common/spaces';
 import { store } from '../store/store';
 
 export const drawParallelLines = (p: p5) => {

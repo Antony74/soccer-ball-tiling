@@ -1,7 +1,7 @@
 import p5 from 'p5';
 import { store } from '../store/store';
-import { Polygon } from './polygon';
-import { spaces } from './spaces';
+import { Polygon } from './common/polygon';
+import { spaces } from './common/spaces';
 
 export const drawTiling = (p: p5) => {
     p.background(0, 0, 95);

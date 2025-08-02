@@ -1,29 +1,18 @@
 import React from 'react';
-import { curvatures } from '../store/store';
-import { useNavigate, useSearchParams } from 'react-router';
-import { setCurvatureIndex } from '../store/actions';
+import { useSketchParams } from '../hooks/useSketchParams';
 
 export const Controls = () => {
-    const [params] = useSearchParams();
-    const curvatureIndex = parseInt(params.get('curvatureIndex') ?? '2');
-    const navigate = useNavigate();
-    setCurvatureIndex(curvatureIndex);
+    const { curvatureIndex, curvatureMinus, curvaturePlus, maxCurvatureIndex } =
+        useSketchParams();
 
     return (
         <div>
-            <button
-                onClick={() => {
-                    navigate(`/?curvatureIndex=${curvatureIndex - 1}`);
-                }}
-                disabled={curvatureIndex <= 0}
-            >
+            <button onClick={curvatureMinus} disabled={curvatureIndex <= 0}>
                 -
             </button>
             <button
-                onClick={() => {
-                    navigate(`/?curvatureIndex=${curvatureIndex + 1}`);
-                }}
-                disabled={curvatureIndex >= Object.keys(curvatures).length - 1}
+                onClick={curvaturePlus}
+                disabled={curvatureIndex >= maxCurvatureIndex}
             >
                 +
             </button>

@@ -28,9 +28,16 @@ export const storeSlice = createSlice({
     name: 'slice',
     initialState: {
         curvatureIndex: curvatures.Spherical,
-        sketchIndex: 0,
+        sketchIndex: sketches.Lines,
     } satisfies MainState,
     reducers: {
+        setSketchIndex: (
+            state: MainState,
+            { payload }: PayloadAction<number>,
+        ): MainState => {
+            payload = sketchesArray[payload] ? payload : sketches.Lines;
+            return { ...state, sketchIndex: payload };
+        },
         setCurvatureIndex: (
             state: MainState,
             { payload }: PayloadAction<number>,

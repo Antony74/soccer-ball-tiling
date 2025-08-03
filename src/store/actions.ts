@@ -7,3 +7,19 @@ export const setSketchIndex = (index: number) => {
 export const setCurvatureIndex = (index: number) => {
     store.dispatch(storeSlice.actions.setCurvatureIndex(index));
 };
+
+export const moveLeft = () => {
+    store.dispatch(storeSlice.actions.moveLeft());
+};
+
+export const moveRight = () => {
+    store.dispatch(storeSlice.actions.moveRight());
+};
+
+export const moveUp = () => {
+    store.dispatch(storeSlice.actions.moveUp());
+};
+
+export const moveDown = () => {
+    store.dispatch(storeSlice.actions.moveDown());
+};

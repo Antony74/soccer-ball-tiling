@@ -3,6 +3,7 @@ import { sketches, store } from '../store/store';
 import { drawTiling } from './drawTiling';
 import { drawParallelLines } from './drawParallelLines';
 import { GyrovectorSpaceFactory } from 'gyrovector';
+import { moveDown, moveLeft, moveRight, moveUp } from '../store/actions';
 
 export const curvatures = [
     -1 / 100000, // Hyperbolic
@@ -16,35 +17,33 @@ export const sketch = (p: p5) => {
         p.colorMode(p.HSB);
     };
 
-    const offsetAmount = 1;
-    let xOffset = 0;
-    let yOffset = 0;
-
     p.draw = () => {
         p.push();
 
         if (p.keyIsDown(p.LEFT_ARROW)) {
-            xOffset -= offsetAmount;
+            moveLeft();
         }
 
         if (p.keyIsDown(p.RIGHT_ARROW)) {
-            xOffset += offsetAmount;
+            moveRight();
         }
 
         if (p.keyIsDown(p.UP_ARROW)) {
-            yOffset -= offsetAmount;
+            moveUp();
         }
 
         if (p.keyIsDown(p.DOWN_ARROW)) {
-            yOffset += offsetAmount;
+            moveDown();
         }
+
+        const state = store.getState();
 
         const space = GyrovectorSpaceFactory.create(
             2,
-            curvatures[store.getState().curvatureIndex],
+            curvatures[state.curvatureIndex],
         );
 
-        const offset = space.createVector(xOffset, yOffset);
+        const offset = space.createVector(state.offset.x, state.offset.y);
 
         switch (store.getState().sketchIndex) {
             case sketches.Lines:

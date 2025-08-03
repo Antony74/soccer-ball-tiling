@@ -26,28 +26,47 @@ export const curvatures = toIndex(curvaturesArray);
 export const curvatureFromIndex = fromIndex(curvaturesArray);
 export type Curvature = keyof typeof curvatures;
 
-export type MainState = { curvatureIndex: number; sketchIndex: number };
+const offsetAmount = 1;
+
+export type MainState = {
+    curvatureIndex: number;
+    sketchIndex: number;
+    offset: { x: 0; y: 0 };
+};
 
 export const storeSlice = createSlice({
     name: 'slice',
     initialState: {
         curvatureIndex: curvatures.Spherical,
         sketchIndex: sketches.Lines,
+        offset: { x: 0, y: 0 },
     } satisfies MainState,
     reducers: {
         setSketchIndex: (
             state: MainState,
             { payload }: PayloadAction<number>,
-        ): MainState => {
+        ) => {
             payload = sketchesArray[payload] ? payload : sketches.Lines;
-            return { ...state, sketchIndex: payload };
+            state.sketchIndex = payload;
         },
         setCurvatureIndex: (
             state: MainState,
             { payload }: PayloadAction<number>,
-        ): MainState => {
+        ) => {
             payload = curvaturesArray[payload] ? payload : curvatures.Spherical;
-            return { ...state, curvatureIndex: payload };
+            state.curvatureIndex = payload;
+        },
+        moveLeft: (state: MainState) => {
+            state.offset.x -= offsetAmount;
+        },
+        moveRight: (state: MainState) => {
+            state.offset.x += offsetAmount;
+        },
+        moveUp: (state: MainState) => {
+            state.offset.y -= offsetAmount;
+        },
+        moveDown: (state: MainState) => {
+            state.offset.y += offsetAmount;
         },
     },
 });

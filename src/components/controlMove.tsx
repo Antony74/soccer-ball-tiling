@@ -8,10 +8,10 @@ export const ControlMove = () => {
                 <strong>Move:</strong>
             </div>
             <div>
-                <div className='center'>
+                <div className="center">
                     <button onClick={moveUp}>W</button>
                 </div>
-                <div className='center'>
+                <div className="center">
                     <button onClick={moveLeft}>A</button>
                     <button onClick={moveDown}>S</button>
                     <button onClick={moveRight}>D</button>

@@ -32,6 +32,7 @@ export type MainState = {
     curvatureIndex: number;
     sketchIndex: number;
     offset: { x: 0; y: 0 };
+    keysDown: Record<string, true>;
 };
 
 export const storeSlice = createSlice({
@@ -40,6 +41,7 @@ export const storeSlice = createSlice({
         curvatureIndex: curvatures.Spherical,
         sketchIndex: sketches.Lines,
         offset: { x: 0, y: 0 },
+        keysDown: {} as Record<string, true>,
     } satisfies MainState,
     reducers: {
         setSketchIndex: (
@@ -67,6 +69,12 @@ export const storeSlice = createSlice({
         },
         moveDown: (state: MainState) => {
             state.offset.y += offsetAmount;
+        },
+        keyDown: (state: MainState, { payload }: PayloadAction<string>) => {
+            state.keysDown[payload] = true;
+        },
+        keyUp: (state: MainState, { payload }: PayloadAction<string>) => {
+            delete state.keysDown[payload];
         },
     },
 });

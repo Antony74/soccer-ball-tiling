@@ -23,3 +23,11 @@ export const moveUp = () => {
 export const moveDown = () => {
     store.dispatch(storeSlice.actions.moveDown());
 };
+
+export const keyDown = (key: string) => {
+    store.dispatch(storeSlice.actions.keyDown(key));
+};
+
+export const keyUp = (key: string) => {
+    store.dispatch(storeSlice.actions.keyUp(key));
+};

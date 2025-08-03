@@ -1,5 +1,17 @@
 import React from 'react';
-import { moveDown, moveLeft, moveRight, moveUp } from '../store/actions';
+import { keyDown, keyUp } from '../store/actions';
+
+const Key = ({ value }: { value: string }) => {
+    return (
+        <button
+            onMouseDown={() => keyDown(value)}
+            onMouseUp={() => keyUp(value)}
+            onMouseLeave={() => keyUp(value)}
+        >
+            {value}
+        </button>
+    );
+};
 
 export const ControlMove = () => {
     return (
@@ -9,12 +21,12 @@ export const ControlMove = () => {
             </div>
             <div>
                 <div className="center">
-                    <button onClick={moveUp}>W</button>
+                    <Key value="W" />
                 </div>
                 <div className="center">
-                    <button onClick={moveLeft}>A</button>
-                    <button onClick={moveDown}>S</button>
-                    <button onClick={moveRight}>D</button>
+                    <Key value="A" />
+                    <Key value="S" />
+                    <Key value="D" />
                 </div>
             </div>
         </div>

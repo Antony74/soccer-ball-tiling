@@ -31,13 +31,17 @@ export const sketch = (p: p5) => {
     p.draw = () => {
         p.push();
 
+        const state = store.getState();
+
         keys.forEach(([key, fn]) => {
             if (p.keyIsDown(key)) {
                 fn();
             }
-        });
 
-        const state = store.getState();
+            if (state.keysDown[String.fromCharCode(key)]) {
+                fn();
+            }
+        });
 
         const space = GyrovectorSpaceFactory.create(
             2,

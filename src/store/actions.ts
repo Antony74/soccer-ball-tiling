@@ -8,29 +8,23 @@ export const setCurvatureIndex = (index: number) => {
     store.dispatch(storeSlice.actions.setCurvatureIndex(index));
 };
 
-export const curvaturePlus = () => {
-    store.dispatch(storeSlice.actions.curvaturePlus());
-};
-
-export const curvatureMinus = () => {
-    store.dispatch(storeSlice.actions.curvatureMinus());
-};
-
-export const moveLeft = () => {
-    store.dispatch(storeSlice.actions.moveLeft());
-};
-
-export const moveRight = () => {
-    store.dispatch(storeSlice.actions.moveRight());
-};
-
-export const moveUp = () => {
-    store.dispatch(storeSlice.actions.moveUp());
-};
-
-export const moveDown = () => {
-    store.dispatch(storeSlice.actions.moveDown());
-};
+export const [
+    curvatureMinus,
+    curvaturePlus,
+    moveLeft,
+    moveRight,
+    moveUp,
+    moveDown,
+] = (
+    [
+        'curvatureMinus',
+        'curvaturePlus',
+        'moveLeft',
+        'moveRight',
+        'moveUp',
+        'moveDown',
+    ] as const
+).map((key) => () => store.dispatch(storeSlice.actions[key]()));
 
 export const keyDown = (key: string) => {
     store.dispatch(storeSlice.actions.keyDown(key));

@@ -1,16 +1,17 @@
-// const u = space.createVector(40, 0);
-
 import p5 from 'p5';
-import { drawLine } from './common/drawLine';
-import { spaces } from './common/spaces';
-import { store } from '../store/store';
+import { drawLine, VectorLikeXY } from './common/drawLine';
+import { VectorSpaceLike } from 'gyrovector';
 
-export const drawParallelLines = (p: p5) => {
+export const drawParallelLines = <
+    GyrovectorType extends VectorLikeXY<GyrovectorType>,
+>(
+    p: p5,
+    space: VectorSpaceLike<2, GyrovectorType>,
+    offset: GyrovectorType,
+) => {
     p.background(0, 0, 95);
     p.translate(0.5 * p.width, 0.5 * p.height);
     p.noFill();
-
-    const space = spaces[store.getState().curvatureIndex];
 
     const u = space.createVector(40, 0);
     const v = u.rotate(p.HALF_PI);
@@ -18,9 +19,9 @@ export const drawParallelLines = (p: p5) => {
     const count = 5;
 
     for (let x = -count; x <= count; x++) {
-        drawLine(p, u.mult(x), v.mult(-count));
-        drawLine(p, u.mult(x), v.mult(count));
-        drawLine(p, v.mult(x), u.mult(-count));
-        drawLine(p, v.mult(x), u.mult(count));
+        drawLine(p, offset.add(u.mult(x)), v.mult(-count));
+        drawLine(p, offset.add(u.mult(x)), v.mult(count));
+        drawLine(p, offset.add(v.mult(x)), u.mult(-count));
+        drawLine(p, offset.add(v.mult(x)), u.mult(count));
     }
 };

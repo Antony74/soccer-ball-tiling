@@ -1,9 +1,13 @@
 import p5 from 'p5';
-import { store } from '../store/store';
 import { Polygon } from './common/polygon';
-import { spaces } from './common/spaces';
+import { VectorSpaceLike } from 'gyrovector';
+import { VectorLikeXY } from './common/drawLine';
 
-export const drawTiling = (p: p5) => {
+export const drawTiling = <GyrovectorType extends VectorLikeXY<GyrovectorType>>(
+    p: p5,
+    space: VectorSpaceLike<2, GyrovectorType>,
+    offset: GyrovectorType,
+) => {
     p.background(0, 0, 95);
 
     p.translate(0.5 * p.width, 0.5 * p.height);
@@ -13,15 +17,11 @@ export const drawTiling = (p: p5) => {
 
     const size = 80;
 
-    const space = spaces[store.getState().curvatureIndex];
-
     const u = space.createVector(size, 0);
 
     const sides = 5;
     const turn = (2 * Math.PI) / sides;
 
     const poly = new Polygon(p, sides, u, turn);
-    poly.draw(u.mult(0));
-
-    p.noLoop();
+    poly.draw(offset);
 };

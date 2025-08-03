@@ -8,6 +8,14 @@ export const setCurvatureIndex = (index: number) => {
     store.dispatch(storeSlice.actions.setCurvatureIndex(index));
 };
 
+export const curvaturePlus = () => {
+    store.dispatch(storeSlice.actions.curvaturePlus());
+};
+
+export const curvatureMinus = () => {
+    store.dispatch(storeSlice.actions.curvatureMinus());
+};
+
 export const moveLeft = () => {
     store.dispatch(storeSlice.actions.moveLeft());
 };

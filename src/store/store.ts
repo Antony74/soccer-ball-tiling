@@ -35,6 +35,14 @@ export type MainState = {
     keysDown: Record<string, true>;
 };
 
+const setCurvatureIndex = (
+    state: MainState,
+    { payload }: { payload: number },
+) => {
+    payload = curvaturesArray[payload] ? payload : curvatures.Spherical;
+    state.curvatureIndex = payload;
+};
+
 export const storeSlice = createSlice({
     name: 'slice',
     initialState: {
@@ -51,12 +59,14 @@ export const storeSlice = createSlice({
             payload = sketchesArray[payload] ? payload : sketches.Lines;
             state.sketchIndex = payload;
         },
-        setCurvatureIndex: (
-            state: MainState,
-            { payload }: PayloadAction<number>,
-        ) => {
-            payload = curvaturesArray[payload] ? payload : curvatures.Spherical;
-            state.curvatureIndex = payload;
+        setCurvatureIndex,
+        curvaturePlus: (state: MainState) => {
+            setCurvatureIndex(state, { payload: state.curvatureIndex + 1 });
+        },
+        curvatureMinus: (state: MainState) => {
+            setCurvatureIndex(state, {
+                payload: Math.max(state.curvatureIndex - 1, 0),
+            });
         },
         moveLeft: (state: MainState) => {
             state.offset.x -= offsetAmount;

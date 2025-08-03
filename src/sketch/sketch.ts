@@ -3,7 +3,14 @@ import { sketches, store } from '../store/store';
 import { drawTiling } from './drawTiling';
 import { drawParallelLines } from './drawParallelLines';
 import { GyrovectorSpaceFactory } from 'gyrovector';
-import { moveDown, moveLeft, moveRight, moveUp } from '../store/actions';
+import {
+    curvatureMinus,
+    curvaturePlus,
+    moveDown,
+    moveLeft,
+    moveRight,
+    moveUp,
+} from '../store/actions';
 
 const curvatures = [
     -1 / 100000, // Hyperbolic
@@ -59,5 +66,16 @@ export const sketch = (p: p5) => {
         }
 
         p.pop();
+    };
+
+    p.keyPressed = () => {
+        switch (p.key) {
+            case '+':
+                curvaturePlus();
+                break;
+            case '-':
+                curvatureMinus();
+                break;
+        }
     };
 };

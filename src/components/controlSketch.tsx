@@ -7,10 +7,10 @@ export const ControlSketch = () => {
 
     return (
         <div className="grid">
-            <div>
+            <div className="col1 padding5">
                 <strong>Sketch:</strong>
             </div>
-            <div>
+            <div className="col2 padding5">
                 <select
                     aria-label="Sketch"
                     defaultValue={sketch}

@@ -6,7 +6,7 @@ export const ControlSketch = () => {
     const { sketch, setSketch } = useSketchParams();
 
     return (
-        <div className="grid">
+        <>
             <div className="col1 padding5">
                 <strong>Sketch:</strong>
             </div>
@@ -23,6 +23,6 @@ export const ControlSketch = () => {
                     })}
                 </select>
             </div>
-        </div>
+        </>
     );
 };

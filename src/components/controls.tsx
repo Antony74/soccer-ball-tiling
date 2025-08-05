@@ -5,7 +5,7 @@ import { ControlMove } from './controlMove';
 
 export const Controls = () => {
     return (
-        <div>
+        <div className="grid">
             <ControlSketch />
             <ControlCurvature />
             <ControlMove />

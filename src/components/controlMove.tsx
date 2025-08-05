@@ -16,7 +16,7 @@ const Key = ({ value, className }: { value: string; className: string }) => {
 
 export const ControlMove = () => {
     return (
-        <div className="grid">
+        <>
             <div className="col1 padding5">
                 <strong>Move:</strong>
             </div>
@@ -26,6 +26,6 @@ export const ControlMove = () => {
                 <Key value="S" className="row2 col2" />
                 <Key value="D" className="row2 col3" />
             </div>
-        </div>
+        </>
     );
 };

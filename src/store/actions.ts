@@ -11,6 +11,7 @@ export const setCurvatureIndex = (index: number) => {
 export const [
     curvatureMinus,
     curvaturePlus,
+    transitionCurvature,
     moveLeft,
     moveRight,
     moveUp,
@@ -19,6 +20,7 @@ export const [
     [
         'curvatureMinus',
         'curvaturePlus',
+        'transitionCurvature',
         'moveLeft',
         'moveRight',
         'moveUp',

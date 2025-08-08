@@ -27,10 +27,13 @@ export const curvatureFromIndex = fromIndex(curvaturesArray);
 export type Curvature = keyof typeof curvatures;
 
 const offsetAmount = 1;
+const curvatureTransitionStep = 0.02;
 
 export type MainState = {
-    curvatureIndex: number;
     sketchIndex: number;
+    curvatureIndex: number;
+    prevCurvatureIndex: number;
+    curvatureTransition: number;
     offset: { x: 0; y: 0 };
     keysDown: Record<string, true>;
 };
@@ -40,14 +43,29 @@ const setCurvatureIndex = (
     { payload }: { payload: number },
 ) => {
     payload = curvaturesArray[payload] ? payload : curvatures.Spherical;
+
+    switch (state.sketchIndex) {
+        case sketches.Lines:
+            state.curvatureTransition = 0;
+            break;
+        default:
+            state.curvatureTransition = 1;
+    }
+
+    if (payload !== state.curvatureIndex) {
+        state.prevCurvatureIndex = state.curvatureIndex;
+    }
+
     state.curvatureIndex = payload;
 };
 
 export const storeSlice = createSlice({
     name: 'slice',
     initialState: {
-        curvatureIndex: curvatures.Spherical,
         sketchIndex: sketches.Lines,
+        curvatureIndex: curvatures.Spherical,
+        prevCurvatureIndex: curvatures.Spherical,
+        curvatureTransition: 1,
         offset: { x: 0, y: 0 },
         keysDown: {} as Record<string, true>,
     } satisfies MainState,
@@ -67,6 +85,12 @@ export const storeSlice = createSlice({
             setCurvatureIndex(state, {
                 payload: Math.max(state.curvatureIndex - 1, 0),
             });
+        },
+        transitionCurvature: (state: MainState) => {
+            state.curvatureTransition = Math.min(
+                state.curvatureTransition + curvatureTransitionStep,
+                1,
+            );
         },
         moveLeft: (state: MainState) => {
             state.offset.x -= offsetAmount;

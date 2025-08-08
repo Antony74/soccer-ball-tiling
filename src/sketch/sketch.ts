@@ -3,6 +3,7 @@ import { sketches, store } from '../store/store';
 import { drawTiling } from './drawTiling';
 import { drawParallelLines } from './drawParallelLines';
 import { GyrovectorSpaceFactory } from 'gyrovector';
+
 import {
     curvatureMinus,
     curvaturePlus,
@@ -10,6 +11,7 @@ import {
     moveLeft,
     moveRight,
     moveUp,
+    transitionCurvature,
 } from '../store/actions';
 
 const curvatures = [
@@ -50,10 +52,19 @@ export const sketch = (p: p5) => {
             }
         });
 
-        const space = GyrovectorSpaceFactory.create(
-            2,
+        const curvature = p.map(
+            state.curvatureTransition,
+            0,
+            1,
+            curvatures[state.prevCurvatureIndex],
             curvatures[state.curvatureIndex],
         );
+
+        if (state.curvatureTransition < 1) {
+            transitionCurvature();
+        }
+
+        const space = GyrovectorSpaceFactory.create(2, curvature);
 
         const offset = space.createVector(state.offset.x, state.offset.y);
 

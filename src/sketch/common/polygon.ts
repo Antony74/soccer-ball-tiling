@@ -11,11 +11,12 @@ export class Polygon<GyrovectorType extends VectorLikeXY<GyrovectorType>> {
 
     constructor(
         private p: p5,
-        sideCount: number,
+        start: GyrovectorType,
         firstSide: GyrovectorType,
+        sideCount: number,
         angle: number,
     ) {
-        let point = firstSide.mult(0);
+        let point = start;
         let line = firstSide;
 
         for (let n = 0; n < sideCount; ++n) {
@@ -26,10 +27,10 @@ export class Polygon<GyrovectorType extends VectorLikeXY<GyrovectorType>> {
         }
     }
 
-    draw(start: GyrovectorType) {
+    draw() {
         for (let index = 0; index < this.sides.length; ++index) {
             const { point, line } = this.sides[index];
-            drawLine(this.p, start.add(point), line);
+            drawLine(this.p, point, line);
         }
     }
 }

@@ -73,7 +73,7 @@ export const sketch = (p: p5) => {
                 drawParallelLines(p, space, offset);
                 break;
             default:
-                drawTiling(p, space, offset);
+                drawTiling(p, space, offset, curvature);
         }
 
         p.pop();
